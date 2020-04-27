@@ -1,0 +1,11 @@
+com\moqi\vedio\mapper\VideosMapperCustom.class
+com\moqi\vedio\mapper\VideosMapper.class
+com\moqi\vedio\mapper\UsersFansMapper.class
+com\moqi\vedio\mapper\UsersMapper.class
+com\moqi\vedio\mapper\CommentsMapperCustom.class
+com\moqi\vedio\utils\MyMapper.class
+com\moqi\vedio\mapper\BgmMapper.class
+com\moqi\vedio\mapper\UsersReportMapper.class
+com\moqi\vedio\mapper\CommentsMapper.class
+com\moqi\vedio\mapper\SearchRecordsMapper.class
+com\moqi\vedio\mapper\UsersLikeVideosMapper.class
