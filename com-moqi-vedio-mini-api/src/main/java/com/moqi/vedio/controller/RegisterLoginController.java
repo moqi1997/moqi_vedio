@@ -24,14 +24,14 @@ import static com.moqi.vedio.controller.BasicController.USER_REDIS_SESSION;
  * @date 2020/4/17 14:49
  */
 @RestController
-@Api(value="用户注册登录的接口", tags= {"注册和登录的controller"})
-public class RegisterLoginController {
+@Api(value = "用户注册登录的接口", tags = {"注册和登录的controller"})
+public class RegisterLoginController extends BasicController {
 
 
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value="用户注册", notes="用户注册的接口")
+    @ApiOperation(value = "用户注册", notes = "用户注册的接口")
     @PostMapping("/regist")
     public IMoocJSONResult regist(@RequestBody Users user) throws Exception {
 
@@ -57,17 +57,12 @@ public class RegisterLoginController {
 
         user.setPassword("");
 
-//		String uniqueToken = UUID.randomUUID().toString();
-//		redis.set(USER_REDIS_SESSION + ":" + user.getId(), uniqueToken, 1000 * 60 * 30);
-//
-//		UsersVO userVO = new UsersVO();
-//		BeanUtils.copyProperties(user, userVO);
-//		userVO.setUserToken(uniqueToken);
-
-        return IMoocJSONResult.ok(user);
+        //设计用户UUID放到redis里
+        UsersVO usersVO = setUserRedisSessionToken(user);
+        return IMoocJSONResult.ok(usersVO);
     }
 
-    @ApiOperation(value="用户登录", notes="用户登录的接口")
+    @ApiOperation(value = "用户登录", notes = "用户登录的接口")
     @PostMapping("/login")
     public IMoocJSONResult login(@RequestBody Users user) throws Exception {
         String username = user.getUsername();
@@ -87,19 +82,27 @@ public class RegisterLoginController {
         // 3. 返回
         if (userResult != null) {
             userResult.setPassword("");
-            return IMoocJSONResult.ok(userResult);
+            UsersVO usersVO = setUserRedisSessionToken(userResult);
+            return IMoocJSONResult.ok(usersVO);
         } else {
             return IMoocJSONResult.errorMsg("用户名或密码不正确, 请重试...");
         }
     }
 
-   /* @ApiOperation(value="用户注销", notes="用户注销的接口")
+    @ApiOperation(value="用户注销", notes="用户注销的接口")
     @ApiImplicitParam(name="userId", value="用户id", required=true,
             dataType="String", paramType="query")
     @PostMapping("/logout")
     public IMoocJSONResult logout(String userId) throws Exception {
         redis.del(USER_REDIS_SESSION + ":" + userId);
         return IMoocJSONResult.ok();
-    }*/
-
+    }
+    public UsersVO setUserRedisSessionToken(Users users) {
+        String uniqueToken = UUID.randomUUID().toString();
+        redis.set(USER_REDIS_SESSION + ":" + users.getId(), uniqueToken, 1000 * 600 * 30);
+        UsersVO usersVO = new UsersVO();
+        BeanUtils.copyProperties(users,usersVO);
+        usersVO.setUserToken(uniqueToken);
+        return usersVO;
+    }
 }
