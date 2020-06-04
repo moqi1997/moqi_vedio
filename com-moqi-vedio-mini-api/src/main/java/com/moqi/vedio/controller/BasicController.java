@@ -20,7 +20,7 @@ public class BasicController {
     public static final String FILE_SPACE = "D:/moqi_vedio";
 
     // ffmpeg所在目录
-  //  public static final String FFMPEG_EXE = "C:\\ffmpeg\\bin\\ffmpeg.exe";
+    public static final String FFMPEG_EXE = "D:\\tools\\ffmpeg-20200429-280383a-win64-static\\bin\\ffmpeg.exe";
     // 每页分页的记录数
     public static final Integer PAGE_SIZE = 5;
 

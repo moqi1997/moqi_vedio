@@ -14,25 +14,6 @@ public class VideoServiceImpl implements VideoService {
 
 	@Autowired
 	private VideosMapper videosMapper;
-
-	@Autowired
-	private UsersMapper usersMapper;
-
-	@Autowired
-	private VideosMapperCustom videosMapperCustom;
-
-	@Autowired
-	private SearchRecordsMapper searchRecordsMapper;
-
-	@Autowired
-	private UsersLikeVideosMapper usersLikeVideosMapper;
-
-	@Autowired
-	private CommentsMapper commentMapper;
-
-	@Autowired
-	private CommentsMapperCustom commentMapperCustom;
-
 	@Autowired
 	private Sid sid;
 	
